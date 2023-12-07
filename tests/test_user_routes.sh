@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Define the output file
-output_file="user_route_test_results.txt"
+# Define the output directory and file
+output_dir="test_results"
+output_file="$output_dir/test_user_routes_results.txt"
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
 
 # Create a test user and get user ID
 echo "Creating test user..." > "$output_file"

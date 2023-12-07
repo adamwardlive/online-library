@@ -1,0 +1,56 @@
+Creating test book...
+Book ID: 6572078a643aca40466f75f3
+Creating test user...
+User ID: 6572078a643aca40466f75f4
+Creating test review...
+Review ID: 6572078a643aca40466f75f5
+Retrieving created review details...
+{
+  "_id": {
+    "$oid": "6572078a643aca40466f75f5"
+  },
+  "book_id": {
+    "$oid": "6572078a643aca40466f75f3"
+  },
+  "user_id": {
+    "$oid": "6572078a643aca40466f75f4"
+  },
+  "rating": 5,
+  "text": "Great book!"
+}
+
+
+Updating the review with 'Updated' data...
+{
+  "msg": "Review updated successfully"
+}
+
+
+Retrieving updated review details...
+{
+  "_id": {
+    "$oid": "6572078a643aca40466f75f5"
+  },
+  "book_id": {
+    "$oid": "6572078a643aca40466f75f3"
+  },
+  "user_id": {
+    "$oid": "6572078a643aca40466f75f4"
+  },
+  "rating": 4,
+  "text": "Updated review text"
+}
+
+
+Deleting the review...
+{
+  "msg": "Review deleted successfully"
+}
+
+
+Confirming review deletion...
+{
+  "error": "Review not found"
+}
+
+

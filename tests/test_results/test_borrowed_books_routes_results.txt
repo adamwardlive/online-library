@@ -1,0 +1,63 @@
+Creating test book and user...
+Book ID: 657207c4643aca40466f75f7, User ID: 657207c4643aca40466f75f8
+Creating test borrowed book...
+Borrowed Book ID: 657207c4643aca40466f75f9
+Retrieving borrowed book details...
+{
+  "_id": {
+    "$oid": "657207c4643aca40466f75f9"
+  },
+  "book": {
+    "$oid": "657207c4643aca40466f75f7"
+  },
+  "user": {
+    "$oid": "657207c4643aca40466f75f8"
+  },
+  "borrowed_date": {
+    "$date": "2023-01-01T00:00:00Z"
+  },
+  "due_date": {
+    "$date": "2023-01-15T00:00:00Z"
+  }
+}
+
+
+Updating borrowed book data...
+{
+  "msg": "Borrowed book updated successfully"
+}
+
+
+Retrieving updated borrowed book details...
+{
+  "_id": {
+    "$oid": "657207c4643aca40466f75f9"
+  },
+  "book": {
+    "$oid": "657207c4643aca40466f75f7"
+  },
+  "user": {
+    "$oid": "657207c4643aca40466f75f8"
+  },
+  "borrowed_date": {
+    "$date": "2023-01-01T00:00:00Z"
+  },
+  "due_date": {
+    "$date": "2023-01-15T00:00:00Z"
+  },
+  "returned": true
+}
+
+
+Deleting the borrowed book...
+{
+  "msg": "Borrowed book deleted successfully"
+}
+
+
+Confirming borrowed book deletion...
+{
+  "error": "Borrowed book not found"
+}
+
+

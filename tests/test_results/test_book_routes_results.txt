@@ -1,0 +1,99 @@
+Creating test book...
+Book ID: 657207b4643aca40466f75f6
+
+
+Testing GET /books...
+[
+  {
+    "_id": {
+      "$oid": "6571c078367fd658a0ea98f1"
+    },
+    "title": "Test Book",
+    "author": "Test Author",
+    "genre": [
+      "Test"
+    ],
+    "cover_image": "https://example.com/image.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "6571c6cc643aca40466f75f0"
+    },
+    "title": "Test Book",
+    "author": "Test Author",
+    "genre": [
+      "Fiction"
+    ],
+    "cover_image": "https://example.com/cover.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "6572078a643aca40466f75f3"
+    },
+    "title": "Test Book",
+    "author": "Test Author",
+    "genre": [
+      "Fiction"
+    ],
+    "cover_image": "https://example.com/cover.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "657207b4643aca40466f75f6"
+    },
+    "title": "Test Book",
+    "author": "Test Author",
+    "genre": [
+      "Fiction"
+    ],
+    "cover_image": "https://example.com/cover.jpg"
+  }
+]
+
+
+Testing GET /books/657207b4643aca40466f75f6...
+{
+  "_id": {
+    "$oid": "657207b4643aca40466f75f6"
+  },
+  "title": "Test Book",
+  "author": "Test Author",
+  "genre": [
+    "Fiction"
+  ],
+  "cover_image": "https://example.com/cover.jpg"
+}
+
+
+Testing PUT /books/657207b4643aca40466f75f6...
+{
+  "msg": "Book updated successfully"
+}
+
+
+Testing GET /books/657207b4643aca40466f75f6 after update...
+{
+  "_id": {
+    "$oid": "657207b4643aca40466f75f6"
+  },
+  "title": "Updated Title",
+  "author": "Updated Author",
+  "genre": [
+    "Updated"
+  ],
+  "cover_image": "https://example.com/updated_image.jpg"
+}
+
+
+Testing DELETE /books/657207b4643aca40466f75f6...
+{
+  "msg": "Book deleted successfully"
+}
+
+
+Testing GET /books/657207b4643aca40466f75f6 after delete to confirm deletion...
+{
+  "error": "Book not found"
+}
+
+

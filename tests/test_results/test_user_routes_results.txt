@@ -1,0 +1,38 @@
+Creating test user...
+User ID: 6571c3dad3012f0bd7ed08d8
+
+
+Retrieving created user details...
+{
+  "_id": "6571c3dad3012f0bd7ed08d8",
+  "email": "testuser@example.com",
+  "username": "testuser"
+}
+
+
+Updating the user's email to 'updateduser@example.com'...
+{
+  "msg": "User updated successfully"
+}
+
+
+Retrieving updated user details...
+{
+  "_id": "6571c3dad3012f0bd7ed08d8",
+  "email": "updateduser@example.com",
+  "username": "testuser"
+}
+
+
+Deleting the user...
+{
+  "msg": "User deleted successfully"
+}
+
+
+Confirming user deletion...
+{
+  "error": "User not found"
+}
+
+
