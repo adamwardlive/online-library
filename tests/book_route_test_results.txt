@@ -1,0 +1,64 @@
+Testing GET /books...
+[
+  {
+    "_id": {
+      "$oid": "6571bbf5367fd658a0ea98e8"
+    },
+    "title": "Test Book",
+    "author": "Test Author",
+    "genre": [
+      "Fiction"
+    ],
+    "cover_image": "https://example.com/cover.jpg"
+  }
+]
+
+
+Testing GET /books/6571bbf5367fd658a0ea98e8...
+{
+  "_id": {
+    "$oid": "6571bbf5367fd658a0ea98e8"
+  },
+  "title": "Test Book",
+  "author": "Test Author",
+  "genre": [
+    "Fiction"
+  ],
+  "cover_image": "https://example.com/cover.jpg"
+}
+
+
+Testing PUT /books/6571bbf5367fd658a0ea98e8...
+{
+  "msg": "Book updated successfully"
+}
+
+
+Testing GET /books/6571bbf5367fd658a0ea98e8 after update...
+{
+  "_id": {
+    "$oid": "6571bbf5367fd658a0ea98e8"
+  },
+  "title": "New Title",
+  "author": "New Author",
+  "genre": [
+    "NewGenre1",
+    "NewGenre2",
+    "NewGenre3"
+  ],
+  "cover_image": "https://newimage.url/image.jpg"
+}
+
+
+Testing DELETE /books/6571bbf5367fd658a0ea98e8...
+{
+  "msg": "Book deleted successfully"
+}
+
+
+Testing GET /books/6571bbf5367fd658a0ea98e8 after delete to confirm deletion...
+{
+  "error": "Book not found"
+}
+
+
