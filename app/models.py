@@ -1,19 +1,17 @@
-from .extensions import db
-from mongoengine import Document, StringField, ReferenceField, IntField, DateTimeField, BooleanField
+from mongoengine import Document, StringField, ReferenceField, IntField, DateTimeField, BooleanField, ListField
 
+class User(Document):
+    username = StringField(required=True, unique=True)
+    email = StringField(required=True, unique=True)
+    hashed_password = StringField(required=True)
+    role = StringField(required=True, default='user')
 
-class User(db.Document):
-    username = db.StringField(required=True, unique=True)
-    email = db.StringField(required=True, unique=True)
-    hashed_password = db.StringField(required=True)
-    role = db.StringField(required=True, default='user')
-
-class Book(db.Document):
-    title = db.StringField(required=True)
-    author = db.StringField(required=True)
-    genre = db.ListField(db.StringField())
-    cover_image = db.StringField()
-    availability_status = db.BooleanField(default=True)
+class Book(Document):
+    title = StringField(required=True)
+    author = StringField(required=True)
+    genre = ListField(StringField())
+    cover_image = StringField()
+    availability_status = BooleanField(default=True)
 
 class Review(Document):
     book = ReferenceField('Book', required=True)  # Reference to the Book document

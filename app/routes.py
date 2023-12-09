@@ -2,10 +2,19 @@ from flask import Blueprint, request, current_app, Response, jsonify
 from bson.json_util import dumps, ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from .utils import hash_password
+from config import Config
 from flask import request, Response, current_app
 from bson import ObjectId, json_util
 from datetime import datetime
 from flask_jwt_extended import create_access_token
+import jwt
+from functools import wraps
+from flask import Blueprint, request, jsonify, make_response
+from werkzeug.security import check_password_hash
+from flask_jwt_extended import create_access_token, JWTManager, jwt_required, create_access_token, get_jwt_identity
+import datetime
+from .extensions import db  # Assuming db is your PyMongo instance
+from .models import User  # Assuming User is your user mode
 
 main_blueprint = Blueprint('main', __name__)
 
@@ -29,6 +38,7 @@ def get_books():
     return books_json
 
 @main_blueprint.route('/books/<book_id>', methods=['GET'])
+@jwt_required()
 def get_book(book_id):
     book = current_app.db.books.find_one({'_id': ObjectId(book_id)})
     if book:
@@ -55,20 +65,26 @@ def delete_book(book_id):
 
 
 
+from pymongo.errors import DuplicateKeyError
+
 @main_blueprint.route('/users', methods=['POST'])
 def create_user():
-    user_data = request.json
-    user_collection = current_app.db.users
-    # Hash the password before storing it
-    user_data['hashed_password'] = hash_password(user_data['password'])
-    del user_data['password']  # Remove the plaintext password
+    try:
+        user_data = request.json
+        user_collection = current_app.db.users
+        # Hash the password before storing it
+        user_data['hashed_password'] = hash_password(user_data['password'])
+        del user_data['password']  # Remove the plaintext password
 
-    # Insert the user and get the inserted ID
-    result = user_collection.insert_one(user_data)
-    inserted_id = result.inserted_id
+        # Insert the user and get the inserted ID
+        result = user_collection.insert_one(user_data)
+        inserted_id = result.inserted_id
 
-    # Return the message with the user ID
-    return jsonify({'msg': f'User created successfully with ID: {str(inserted_id)}'}), 201
+        # Return the message with the user ID
+        return jsonify({'msg': f'User created successfully with ID: {str(inserted_id)}'}), 201
+    except DuplicateKeyError:
+        return jsonify({'error': 'Username or email already exists'}), 409
+
 
 @main_blueprint.route('/users', methods=['GET'])
 def get_users():
@@ -227,3 +243,27 @@ def get_unreturned_books():
     unreturned_books = current_app.db.borrowed_books.find({"returned": False})
     unreturned_books_json = dumps(unreturned_books)
     return Response(unreturned_books_json, mimetype='application/json')
+
+
+@main_blueprint.route('/login', methods=['POST'])
+def login():
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+
+    # Fetch user from the database
+    user_collection = current_app.db.users
+    user = user_collection.find_one({'username': username})
+
+    # Verify user and password
+    if user and check_password_hash(user['hashed_password'], password):
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify({"msg": "Bad username or password"}), 401
+
+
+@main_blueprint.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
